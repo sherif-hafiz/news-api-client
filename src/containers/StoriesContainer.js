@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
 import { Story } from '../components/Story';
 import {
@@ -8,10 +8,13 @@ import {
 
 
 import { STORY_INCREMENT } from '../constants';
+import { NewsContext } from '../contexts/NewContext';
 
 const baseURL = 'https://newsapi.org/v2/everything';
 
 export const StoriesContainer = () => {
+
+  const { loading, isLoading } = useContext(NewsContext);
   const [newItems, setNewItems] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [numberPages, setNumberPages] = useState(0);
@@ -45,7 +48,7 @@ export const StoriesContainer = () => {
     })
     .then(res => res)
     .catch(err => console.error(err));
-    console.log(data)
+    console.log(data);
     
     setTotalResults(data.totalResults);
     setNumberPages(Math.ceil(data.totalResults/ 20));
@@ -53,15 +56,11 @@ export const StoriesContainer = () => {
   };
 
 
-  // useEffect(() => {
-  //   console.log('Initial mount');
-  //   getSearch();
-  // }, [])
-  
-
   useEffect(() => {
+    console.log('Initial mount');
     getSearch();
-  }, []);
+  //eslint-disable-next-line
+  }, [])
   
 
   return (

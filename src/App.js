@@ -1,11 +1,16 @@
 import React from 'react';
-// import './App.css';
+import NewsContentProvider from './contexts/NewContext';
 import { StoriesContainer } from './containers/StoriesContainer';
+import Search from './components/Search';
+
 
 function App() {
 
   return (
-    <StoriesContainer />
+    <NewsContentProvider>
+      <Search/>
+      <StoriesContainer />
+    </NewsContentProvider>
   )
 }
 
